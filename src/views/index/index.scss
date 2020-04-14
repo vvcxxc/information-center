@@ -1,3 +1,115 @@
-.page {
-  font-size: 44px;
+.article-list-page {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35px;
+  box-sizing: border-box;
+
+  .banner-img {
+    width: 685px;
+    height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 70px;
+
+    .my-swipe .van-swipe-item {
+      width: 684px;
+      height: 280px;
+    }
+
+    .banner-img-img {
+      width: 680px;
+      height: 280px;
+    }
+  }
+
+  .article-tab-title-box {
+    width: 100vw;
+    overflow-x: scroll;
+
+    .article-tab-title-content {
+      white-space: nowrap; // 这个必须有
+      height: 60px;
+      line-height: 50px;
+      font-size: 16px;
+      overflow-y: hidden; // 这个必须有
+
+      .table-item {
+        width: 200px;
+        height: 60px;
+        text-align: center;
+        display: inline-block; // 这个必须有
+        font-size: 36px;
+        font-weight: normal;
+        color: rgba(152, 166, 173, 1);
+      }
+
+      .table-item-select {
+        width: 200px;
+        height: 60px;
+        text-align: center;
+        display: inline-block; // 这个必须有
+        font-size: 36px;
+        font-family: Adobe Heiti Std;
+        font-weight: bold;
+        color: rgba(44, 62, 80, 1);
+        position: relative;
+
+        .tab-link-border {
+          width: 50px;
+          height: 8px;
+          background: rgba(68, 134, 247, 1);
+          border-radius: 4px;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 0);
+        }
+      }
+    }
+  }
+
+  .article-list-box {
+    width: 100%;
+    height: auto;
+    padding: 50px 40px;
+    box-sizing: border-box;
+
+    .article-list-content {
+      width: 100%;
+      height: auto;
+
+      .article-list-item {
+        width: 100%;
+        height: 70px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #dde2e5;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .article-list-item-title {
+          line-height: 1;
+          font-size: 28px;
+          font-weight: normal;
+          color: rgba(44, 62, 80, 1);
+          max-width: 360px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .article-list-item-time {
+          line-height: 1;
+          font-size: 24px;
+          font-weight: normal;
+          color: rgba(152, 166, 173, 1);
+        }
+      }
+    }
+  }
 }

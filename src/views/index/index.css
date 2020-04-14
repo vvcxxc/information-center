@@ -1,0 +1,120 @@
+.article-list-page {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35px;
+  box-sizing: border-box;
+}
+.article-list-page .banner-img {
+  width: 685px;
+  height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 70px;
+}
+.article-list-page .banner-img .my-swipe .van-swipe-item {
+  width: 684px;
+  height: 280px;
+}
+.article-list-page .banner-img .banner-img-img {
+  width: 680px;
+  height: 280px;
+}
+.article-list-page .article-tab-title-box {
+  width: 100vw;
+  overflow-x: scroll;
+}
+.article-list-page .article-tab-title-box .article-tab-title-content {
+  white-space: nowrap;
+  height: 60px;
+  line-height: 50px;
+  font-size: 16px;
+  overflow-y: hidden;
+}
+.article-list-page
+  .article-tab-title-box
+  .article-tab-title-content
+  .table-item {
+  width: 200px;
+  height: 60px;
+  text-align: center;
+  display: inline-block;
+  font-size: 36px;
+  font-weight: normal;
+  color: #98a6ad;
+}
+.article-list-page
+  .article-tab-title-box
+  .article-tab-title-content
+  .table-item-select {
+  width: 200px;
+  height: 60px;
+  text-align: center;
+  display: inline-block;
+  font-size: 36px;
+  font-family: Adobe Heiti Std;
+  font-weight: bold;
+  color: #2c3e50;
+  position: relative;
+}
+.article-list-page
+  .article-tab-title-box
+  .article-tab-title-content
+  .table-item-select
+  .tab-link-border {
+  width: 50px;
+  height: 8px;
+  background: #4486f7;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.article-list-page .article-list-box {
+  width: 100%;
+  height: auto;
+  padding: 50px 40px;
+  box-sizing: border-box;
+}
+.article-list-page .article-list-box .article-list-content {
+  width: 100%;
+  height: auto;
+}
+.article-list-page .article-list-box .article-list-content .article-list-item {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dde2e5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.article-list-page
+  .article-list-box
+  .article-list-content
+  .article-list-item
+  .article-list-item-title {
+  line-height: 1;
+  font-size: 28px;
+  font-weight: normal;
+  color: #2c3e50;
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.article-list-page
+  .article-list-box
+  .article-list-content
+  .article-list-item
+  .article-list-item-time {
+  line-height: 1;
+  font-size: 24px;
+  font-weight: normal;
+  color: #98a6ad;
+}

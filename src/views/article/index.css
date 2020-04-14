@@ -1,0 +1,120 @@
+.article-list-page {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 30px;
+  box-sizing: border-box;
+}
+.article-list-page .previewPhoneTitle {
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+  line-height: 50px;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+}
+.article-list-page .previewPhoneAuthBox {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.article-list-page .previewPhoneAuthBox .previewPhoneAuth {
+  font-size: 20px;
+  margin-right: 50px;
+}
+.article-list-page .previewPhoneAuthBox .previewPhoneTime {
+  font-size: 20px;
+}
+.article-list-page .title-img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+.article-list-page .previewPContent {
+  width: 100%;
+  height: auto;
+  margin-bottom: 65px;
+}
+.article-list-page .previewPContent p {
+  line-height: 50px;
+  margin: 0;
+}
+.article-list-page .other-article {
+  width: 100%;
+  height: auto;
+}
+.article-list-page .other-article .other-article-title {
+  width: 100%;
+  text-align: left;
+  font-size: 36px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+.article-list-page .other-article .other-article-item {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dcdcdc;
+}
+.article-list-page .other-article .other-article-item .other-article-item-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  margin-right: 30px;
+  overflow: hidden;
+}
+.article-list-page .other-article .other-article-item .other-article-item-info {
+  width: calc(100% - 200px);
+  height: auto;
+}
+.article-list-page
+  .other-article
+  .other-article-item
+  .other-article-item-info
+  .other-article-item-info-title {
+  width: 100%;
+  line-height: 45px;
+  font-size: 28px;
+  color: #2c3e50;
+  line-height: 48px;
+  margin-bottom: 20px;
+}
+.article-list-page
+  .other-article
+  .other-article-item
+  .other-article-item-info
+  .other-article-item-info-date {
+  width: 100%;
+  height: 20px;
+  font-size: 20px;
+  color: #98a6ad;
+  line-height: 1;
+}
+.article-list-page .other-article .other-article-more {
+  width: 100%;
+  height: 130px;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #4486f7;
+  line-height: 1;
+}
