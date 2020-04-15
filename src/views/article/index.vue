@@ -1,51 +1,139 @@
 <template>
   <div class="article-list-page">
-    <div
-      class="previewPhoneTitle"
-    >btbt不过天天电饭锅电饭锅电饭锅btbt不过天天电饭锅电饭锅电饭锅btbt不过天天电饭锅电饭锅电饭锅btbt不过天天电饭锅电饭锅电饭锅</div>
+    <div class="article-loading" v-if="isLoading">
+      <div class="article-loading-box">
+        <van-loading size="100px" color="#1989fa" />
+      </div>
+    </div>
+    <div class="previewPhoneTitle">{{data.article_title}}</div>
     <div class="previewPhoneAuthBox">
-      <div class="previewPhoneAuth">发布者：小学生</div>
-      <div class="previewPhoneTime">发布时间：2019-12-22 12:12:22</div>
+      <div class="previewPhoneAuth">发布者：{{data.article_author}}</div>
+      <div class="previewPhoneTime">发布时间：{{data.publish_time}}</div>
     </div>
-    <img
-      class="title-img"
-      src="http://tmwl.oss-cn-shenzhen.aliyuncs.com/front/SjDsykGthz8epDB6dmeKWfx6fCtbm3ZX.png"
-    />
-    <div class="previewPContent">
-      <p>asdasdjaksd撒旦范德萨fghf gfhhgf刻录龟苓膏i公园里看i路过hi泸沽湖hgd到iuh十多个范德萨范德萨asg的萨芬的萨芬diasuda</p>
-      <p>asdasdjakshgdasgdiasuda</p>
-      <p>asdasdjakshgdasgdiasuda</p>
+    <div class="title-img">
+      <img class="title-img-img" :src="data.author_cover" />
     </div>
+    <div class="previewContent" v-html="data.content"></div>
     <div class="other-article">
       <div class="other-article-title">精品推荐</div>
-      <div class="other-article-item">
-        <img
-          class="other-article-item-img"
-          src="http://tmwl.oss-cn-shenzhen.aliyuncs.com/front/SjDsykGthz8epDB6dmeKWfx6fCtbm3ZX.png"
-        />
+      <div
+        class="other-article-item"
+        v-for="(item,index) in otherArticleList"
+        v-bind:key="index"
+        @click="goToArticle(item.id)"
+      >
+        <div class="other-article-item-img">
+          <img class="other-article-item-img-img" :src="item.author_cover" />
+        </div>
         <div class="other-article-item-info">
-          <div class="other-article-item-info-title">店铺某某店铺赚疯来某店铺店铺赚疯来 某店铺店铺赚疯来某店铺</div>
-          <div class="other-article-item-info-date">2019-10-10 15:30:45</div>
+          <div class="other-article-item-info-title">{{item.article_title}}</div>
+          <div class="other-article-item-info-date">{{item.publish_time}}</div>
         </div>
       </div>
-      <div class="other-article-item">
-        <img
-          class="other-article-item-img"
-          src="http://tmwl.oss-cn-shenzhen.aliyuncs.com/front/SjDsykGthz8epDB6dmeKWfx6fCtbm3ZX.png"
-        />
-        <div class="other-article-item-info">
-          <div class="other-article-item-info-title">店铺某某店铺赚疯来某店铺店铺赚疯来 某店铺店铺赚疯来某店铺</div>
-          <div class="other-article-item-info-date">2019-10-10 15:30:45</div>
-        </div>
-      </div>
-      <div class="other-article-more">查看更多攻略</div>
+      <div class="other-article-more" @click="goToIndex()">查看更多攻略</div>
     </div>
   </div>
 </template>
 <script>
+import { getArticleInfo, getArticleOtherList } from "@/api/api";
+import Vue from "vue";
+import { Loading, Notify } from "vant";
+Vue.use(Loading);
+Vue.use(Notify);
 export default {
   data() {
-    return {};
+    return {
+      isLoading: false,
+      data: {
+        id: 0,
+        article_title: "",
+        article_author: "",
+        author_cover: "",
+        content: "",
+        read_num: 0,
+        publish_time: ""
+      },
+      otherArticleList: [],
+      meta: {
+        pagination: {
+          total: 0,
+          count: 0,
+          per_page: 0,
+          current_page: 0,
+          total_pages: 0
+        }
+      },
+      listPage: 1
+    };
+  },
+  created() {
+    let id = this.$route.query.id;
+    this.isLoading = true;
+    getArticleInfo({ article_id: id })
+      .then(res => {
+        this.isLoading = false;
+        res.data && (this.data = res.data);
+        this.getOtherList(1);
+      })
+      .catch(err => {
+        this.isLoading = false;
+        console.log(err);
+        Notify("请求文章失败");
+      });
+  },
+  methods: {
+    getOtherList(page) {
+      this.isLoading = true;
+      getArticleOtherList({
+        role_uusn: this.$route.query.role_uusn,
+        exclude_article_id: this.data.id,
+        page
+      })
+        .then(res => {
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 200);
+          console.log(res);
+          let tempList = this.otherArticleList.length
+            ? this.otherArticleList.concat(res.data)
+            : res.data;
+          this.otherArticleList = tempList;
+          this.meta = res.meta;
+          this.listPage = Number(page) + 1;
+        })
+        .catch(err => {
+          this.isLoading = false;
+          console.log(err);
+          Notify("请求推荐列表失败");
+        });
+    },
+    goToArticle(id) {
+      //假跳转
+      this.$router.push({
+        query: { id, role_uusn: this.$route.query.role_uusn }
+      }); //改url参数，假象，没啥别的作用
+      this.isLoading = true;
+      getArticleInfo({ article_id: id })
+        .then(res => {
+          this.isLoading = false;
+          res.data && (this.data = res.data);
+          this.otherArticleList = [];
+          this.listPage = 1;
+          this.getOtherList(1);
+          window.scrollTo(0, 0);
+        })
+        .catch(err => {
+          this.isLoading = false;
+          console.log(err);
+          Notify("请求文章失败");
+        });
+    },
+    goToIndex() {
+      this.$router.push({
+        path: "/",
+        query: { role_uusn: this.$route.query.role_uusn }
+      });
+    }
   }
 };
 </script>

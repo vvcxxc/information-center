@@ -1,7 +1,5 @@
 import axios from "axios"
 import qs from "qs"
-import { getToken } from "../utils/get_info"
-import { FETCH_OK, NOT_SIGN, NOT_FIND, SERVER_ERROR } from "../utils/global"
 import store from "../store/index"
 import { Toast } from "vant"
 const config = {
@@ -15,7 +13,6 @@ const instance = axios.create(config)
 instance.interceptors.request.use(
   config => {
     store.dispatch("ajaxBefore");
-    config.headers["Authorization"] = getToken()
     if (config.method.toLocaleLowerCase() === "post") {
       config.data = qs.stringify(config.data)
     }
@@ -31,7 +28,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     store.dispatch("ajaxAfter")
-    if (response.status === FETCH_OK) {
+    if (response.status === 200) {
       return response.data
     } else {
       return Promise.reject(response)
@@ -50,17 +47,13 @@ instance.interceptors.response.use(
         case 400:
           window.console.log("HTTP: 400")
           break
-        case NOT_SIGN:
-          import("../utils/handle_login").then(({ Login1 }) => {
-            window.console.log("execute Login method")
-            // return Login()
-          })
+        case 401:
           break
-        case NOT_FIND:
-          window.console.log("HTTP: " + NOT_FIND)
+        case 404:
+          window.console.log("HTTP: " + 401)
           break
-        case SERVER_ERROR:
-          window.console.log("HTTP: " + SERVER_ERROR)
+        case 500:
+          window.console.log("HTTP: " + 500)
           break
         default:
           window.console.log(data.message)
