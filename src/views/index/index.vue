@@ -69,16 +69,17 @@ export default {
     };
   },
   created() {
+    let role_uusn = this.$route.query.role_uusn;
     this.isLoading = true;
-    this.getBanner("entrepreneur");
-    this.getTabClass("entrepreneur");
+    this.getBanner(role_uusn);
+    this.getTabClass(role_uusn);
   },
   watch: {
     tabIndex(index) {
       if (this.pageList[index]) {
         this.showList = this.listData[index];
       } else {
-        this.getList(index, 1);
+        this.getList(index, 1); //tab下标index，页数1
       }
     }
   },
@@ -90,6 +91,7 @@ export default {
           res.data.length && (this.bannerImages = res.data);
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
           Notify("请求banner失败");
         });
@@ -108,6 +110,7 @@ export default {
           }
         })
         .catch(err => {
+          this.isLoading = false;
           console.log(err);
           Notify("请求文章分类失败");
         });
@@ -143,9 +146,10 @@ export default {
         });
     },
     goToArticle(id) {
+      let role_uusn = this.$route.query.role_uusn;
       this.$router.push({
         path: "/article",
-        query: { id, role_uusn: "entrepreneur" }
+        query: { id, role_uusn }
       });
     }
   }
