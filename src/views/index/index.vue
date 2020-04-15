@@ -8,7 +8,7 @@
     <div class="banner-img" v-if="bannerImages.length">
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(image, index) in bannerImages" :key="index">
-          <img v-lazy="image" class="banner-img-img" />
+          <img v-lazy="image.banner_cover" class="banner-img-img" @click="imgJump(image)" />
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -151,6 +151,19 @@ export default {
         path: "/article",
         query: { id, role_uusn }
       });
+    },
+    imgJump(item) {
+      if (item.banner_type == 1 && item.external_url) {
+        //图片
+        console.log(item.external_url);
+        location.herf = item.external_url;
+      } else if (item.banner_type == 2) {
+        let role_uusn = this.$route.query.role_uusn;
+        this.$router.push({
+          path: "/article",
+          query: { id: item.article_id, role_uusn }
+        });
+      }
     }
   }
 };
