@@ -70,7 +70,6 @@ export default {
   },
   created() {
     let role_uusn = this.$route.query.role_uusn;
-    this.isLoading = true;
     this.getBanner(role_uusn);
     this.getTabClass(role_uusn);
   },
@@ -91,7 +90,6 @@ export default {
           res.data.length && (this.bannerImages = res.data);
         })
         .catch(err => {
-          this.isLoading = false;
           console.log(err);
           Notify("请求banner失败");
         });
@@ -110,7 +108,6 @@ export default {
           }
         })
         .catch(err => {
-          this.isLoading = false;
           console.log(err);
           Notify("请求文章分类失败");
         });
