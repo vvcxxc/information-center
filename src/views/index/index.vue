@@ -104,6 +104,12 @@ export default {
         .then(res => {
           if (res.data.length) {
             this.articleTab = res.data;
+            let tempList = [];
+            for (let i in res.data) {
+              tempList.push([]);
+              console.log(i);
+            }
+            this.listData = tempList;
             this.getList(0, 1); //tab下标0，页数1
           }
         })
@@ -126,9 +132,10 @@ export default {
           let tempList = this.listData;
           let tempPage = this.pageList;
           let temptotalPageList = this.totalPageList;
-          tempList[index] = tempList[index].length
-            ? tempList[index].concat(res.data)
-            : res.data;
+          tempList[index] =
+            tempList[index] && tempList[index].length
+              ? tempList[index].concat(res.data)
+              : res.data;
           tempPage[index] = Number(page) + 1;
           temptotalPageList[index] = res.meta.pagination.total_pages;
           this.showList = tempList[index]; //临时一维数组，用于显示
