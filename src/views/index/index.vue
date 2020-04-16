@@ -158,9 +158,7 @@ export default {
     },
     imgJump(item) {
       if (item.banner_type == 1 && item.external_url) {
-        //图片
-        console.log(item.external_url);
-        location.herf = item.external_url;
+        window.location.href = item.external_url;
       } else if (item.banner_type == 2) {
         let role_uusn = this.$route.query.role_uusn;
         this.$router.push({
