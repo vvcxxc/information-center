@@ -1,5 +1,6 @@
 <template>
   <div class="article-list-page">
+    <NotFound v-if="notFound" />
     <div class="article-loading" v-if="isLoading">
       <div class="article-loading-box">
         <van-loading size="100px" color="#1989fa" />
@@ -40,6 +41,7 @@ import Vue from "vue";
 import { Loading, Notify } from "vant";
 Vue.use(Loading);
 Vue.use(Notify);
+import NotFound from "@/components/NotFound";
 export default {
   data() {
     return {
@@ -63,7 +65,8 @@ export default {
           total_pages: 0
         }
       },
-      listPage: 1
+      listPage: 1,
+      notFound: false
     };
   },
   created() {
@@ -77,8 +80,10 @@ export default {
       })
       .catch(err => {
         this.isLoading = false;
-        console.log(err);
-        Notify("请求文章失败");
+        Notify(err.data.message);
+        if (err.status == 404) {
+          this.notFound = true;
+        }
       });
   },
   methods: {
@@ -103,8 +108,10 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
-          Notify("请求推荐列表失败");
+          Notify(err.data.message);
+          if (err.status == 404) {
+            this.notFound = true;
+          }
         });
     },
     goToArticle(id) {
@@ -124,8 +131,10 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
-          Notify("请求文章失败");
+          Notify(err.data.message);
+          if (err.status == 404) {
+            this.notFound = true;
+          }
         });
     },
     goToIndex() {
@@ -134,6 +143,9 @@ export default {
         query: { role_uusn: this.$route.query.role_uusn }
       });
     }
+  },
+  components: {
+    NotFound
   }
 };
 </script>

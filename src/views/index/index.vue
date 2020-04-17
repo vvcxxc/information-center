@@ -1,5 +1,6 @@
 <template>
   <div class="article-list-page">
+    <NotFound v-if="notFound" />
     <div class="article-loading" v-if="isLoading">
       <div class="article-loading-box">
         <van-loading size="100px" color="#1989fa" />
@@ -55,6 +56,7 @@ Vue.use(Lazyload);
 Vue.use(Loading);
 Vue.use(Notify);
 import { getBannerImg, getArticleClass, getArticleList } from "@/api/api";
+import NotFound from "@/components/NotFound";
 export default {
   data() {
     return {
@@ -65,7 +67,8 @@ export default {
       listData: [[], []],
       showList: [],
       pageList: [],
-      totalPageList: []
+      totalPageList: [],
+      notFound: false
     };
   },
   created() {
@@ -90,8 +93,10 @@ export default {
           res.data.length && (this.bannerImages = res.data);
         })
         .catch(err => {
-          console.log(err);
-          Notify("请求banner失败");
+          Notify(err.data.message);
+          if (err.status == 404) {
+            this.notFound = true;
+          }
         });
     },
     changeTabIndex(index) {
@@ -114,8 +119,10 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
-          Notify("请求文章分类失败");
+          Notify(err.data.message);
+          if (err.status == 404) {
+            this.notFound = true;
+          }
         });
     },
     getList(index, page) {
@@ -145,8 +152,10 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
-          Notify("请求文章列表失败");
+          Notify(err.data.message);
+          if (err.status == 404) {
+            this.notFound = true;
+          }
         });
     },
     goToArticle(id) {
@@ -167,6 +176,9 @@ export default {
         });
       }
     }
+  },
+  components: {
+    NotFound
   }
 };
 </script>
